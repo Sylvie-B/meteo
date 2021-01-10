@@ -8,7 +8,7 @@ xhr.open("GET", weatherURL);
 xhr.responseType = "json";
 xhr.send();
 
-// html element targets
+// html elements target
 let weather = document.getElementById('weather');
 
 let logoMeteo = document.createElement('img');
@@ -23,31 +23,35 @@ temp.appendChild(logoThermo);
 temp.appendChild(nbrThermo);
 
 xhr.onload = function () {
-    if(xhr.status === 200){
-        console.log('Yes !');
+    if(xhr.status !== 200){
+        return;
     }
+
     let day = new Date();
     let infos = xhr.response;
-    // todo log remove
-    console.log(infos);
+
     document.getElementById('country').innerHTML = infos.name;
     document.getElementById('date').innerHTML = day.toLocaleDateString();
     document.getElementById('hour').innerHTML = day.toLocaleTimeString();
 
-    // clear sky - few clouds -  -  -  -  -  -  -
+    // conditions
     let description = document.getElementById('description');
     let txt = infos.weather[0].description;
-    let planet = infos.sys.sunrise;
-    console.log(planet);
+    // background night or day
+    let thisTime = Date.now() / 1000;
+    let night = document.getElementById('night');
+    if(thisTime > infos.sys.sunrise){
+        night.style.backgroundColor = '#00000080';
+        night.style.color = 'white';
+    }
+    else {
+        night.style.backgroundColor = 'unset';
+        night.style.color = 'black';
+    }
+    // weather logo and description
     switch (txt) {
         case 'clear sky':
-            if(day > infos.sys.sunrise && day < infos.sys.sunset){
-                logoMeteo.src = 'logoWeather/moon.png';
-            }
-            else {
-                logoMeteo.src = 'logoWeather/sun.png';
-            }
-
+            logoMeteo.src = (thisTime > infos.sys.sunrise) ? 'logoWeather/moon.png' : 'logoWeather/sun.png';
             description.innerHTML = 'ciel dégagé';
             break;
         case 'few clouds':
@@ -80,18 +84,20 @@ xhr.onload = function () {
             break;
     }
 
-
-
     let tempC = infos.main.temp - 273.15;
     nbrThermo.innerHTML = tempC.toFixed(2) + '°C';
+
     if(tempC <= 0){
         logoThermo.src = 'logoWeather/tempNeg.png';
+        nbrThermo.style.color = 'blue';
     }
     else {
         logoThermo.src = 'logoWeather/tempPos.png';
+        nbrThermo.style.color = 'red';
     }
+
     document.getElementById('humidity').innerHTML += infos.main.humidity + '%';
     // 1m/s = 3.6 km/h
-    document.getElementById('wind').innerHTML += (infos.wind.speed * 3.6).toFixed(2) + 'km/h';
+    document.getElementById('wind').innerHTML += (infos.wind.speed * 3.6).toFixed(2) + ' km/h';
 }
 

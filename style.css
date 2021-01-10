@@ -15,12 +15,17 @@ body {
 
 #container {
     width: 60%;
-    min-height: 60vh;
     margin: auto;
-    padding: 2vw;
     background-image: url("logoWeather/landscape.jpg");
     background-size: cover;
     background-repeat: no-repeat;
+}
+
+#night {
+    width: 100%;
+    min-height: 60vh;
+    margin: auto;
+    padding: 2vw;
 }
 
 header, section, #temp {
@@ -37,15 +42,11 @@ section, #temp {
     align-items: center;
 }
 
-section {
-    background-color: #ffffffa1;
-}
-
 #description {
     text-align: center;
 }
 
-#time, #infos {
+#time, #infos, #description {
     font-size: 2vw;
 }
 
@@ -53,7 +54,7 @@ section {
     font-size: 2.5vw;
 }
 
-@media screen and (max-width: 700px) {
+@media screen and (max-width: 750px) {
     #container {
         width: 100%;
     }
@@ -64,7 +65,7 @@ section {
         width: 28vw;
         font-size: 3.5vw;
     }
-    #infos {
+    #infos, #description {
         font-size: 2.5vw;
     }
 }
@@ -75,7 +76,7 @@ section {
         margin: auto;
         flex-direction: column;
     }
-    #infos {
+    #infos, #description {
         font-size: 3vw;
     }
 }
@@ -91,7 +92,7 @@ section {
         width: 55vw;
         font-size: 6vw;
     }
-    #infos {
+    #country, #time, #description, #infos {
         font-size: 6vw;
     }
 }
