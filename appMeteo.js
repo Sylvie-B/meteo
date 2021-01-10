@@ -6,24 +6,17 @@ xhr.open("GET", weatherURL);
 
 xhr.responseType = "json";
 xhr.send();
-// weather logo
-let logo = [
-    'logoWeather/cloud.png',
-    'logoWeather/rain.png',
-    'logoWeather/rain-sun.png',
-    'logoWeather/snow.png',
-    'logoWeather/sun.png',
-    'logoWeather/tempNeg.png',
-    'logoWeather/tempPos.png'
-]
 
 // target
 let weather = document.getElementById('weather');
+
 let logoMeteo = document.createElement('img');
+logoMeteo.style.width = '14vw';
 weather.appendChild(logoMeteo);
 
 let temp = document.getElementById('temp');
 let logoThermo = document.createElement('img');
+logoThermo.style.width = '10vw';
 let nbrThermo = document.createElement('span');
 temp.appendChild(logoThermo);
 temp.appendChild(nbrThermo);
@@ -40,9 +33,50 @@ xhr.onload = function () {
     document.getElementById('date').innerHTML = day.toLocaleDateString();
     document.getElementById('hour').innerHTML = day.toLocaleTimeString();
 
-    logoMeteo.src = logo[0];
-    // clear sky - few clouds - scattered clouds - broken clouds - shower rain - rain - thunderstorm - snow - mist
-    document.getElementById('description').innerHTML = 'description';
+
+    // clear sky - few clouds -  -  -  -  -  -  -
+    let description = document.getElementById('description');
+    let txt = infos.weather[0].description;
+    console.log(txt);
+    switch (txt) {
+        case 'clear sky':
+            logoMeteo.src = 'logoWeather/sun.png';
+            description.innerHTML = 'ciel dégagé';
+            break;
+        case 'few clouds':
+            logoMeteo.src = 'logoWeather/cloud.png';
+            description.innerHTML = 'peu de nuages';
+            break;
+        case 'scattered clouds':
+            logoMeteo.src = 'logoWeather/cloud.png';
+            description.innerHTML = 'quelques nuages';
+            break;
+        case 'broken clouds':
+            logoMeteo.src = 'logoWeather/cloud.png';
+            description.innerHTML = 'nuages épars';
+            break;
+        case 'shower rain':
+            logoMeteo.src = 'logoWeather/rain-sun.png';
+            description.innerHTML = 'quelques averses';
+            break;
+        case 'rain':
+            logoMeteo.src = 'logoWeather/rain.png';
+            description.innerHTML = 'pluie';
+            break;
+        case 'thunderstorm':
+            logoMeteo.src = '';
+            description.innerHTML = 'orage';
+            break;
+        case 'snow':
+            logoMeteo.src = 'logoWeather/snow.png';
+            description.innerHTML = 'neige';
+            break;
+        // case 'mist':
+        //     logoMeteo.src = '';
+        //     description.innerHTML = '';
+        //     break;
+    }
+
 
 
     let tempC = infos.main.temp - 273.15;
