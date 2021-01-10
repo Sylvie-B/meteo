@@ -17,12 +17,13 @@ body {
     width: 60%;
     height: 60vh;
     margin: auto;
+    padding: 2vw;
     background-image: url("logoWeather/landscape.jpg");
     background-size: cover;
     background-repeat: no-repeat;
 }
 
-header, section {
+header, section, #temp {
     padding: 1vw;
     display: flex;
     justify-content: space-between;
@@ -32,11 +33,22 @@ header, section {
     font-size: 4vw;
 }
 
+section, #temp {
+    align-items: center;
+}
+
+section {
+    background-color: white;
+}
+
+#description {
+    text-align: center;
+}
+
 #time, #infos {
     font-size: 2vw;
 }
 
 #temp {
-    font-size: 4vw;
+    font-size: 3vw;
 }
-

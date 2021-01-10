@@ -18,10 +18,15 @@ let logo = [
 ]
 
 // target
-let display = document.getElementById('weather');
-let weather = document.createElement('img');
+let weather = document.getElementById('weather');
+let logoMeteo = document.createElement('img');
+weather.appendChild(logoMeteo);
 
-display.appendChild(weather);
+let temp = document.getElementById('temp');
+let logoThermo = document.createElement('img');
+let nbrThermo = document.createElement('span');
+temp.appendChild(logoThermo);
+temp.appendChild(nbrThermo);
 
 xhr.onload = function () {
     if(xhr.status === 200){
@@ -34,7 +39,22 @@ xhr.onload = function () {
     document.getElementById('country').innerHTML = infos.name;
     document.getElementById('date').innerHTML = day.toLocaleDateString();
     document.getElementById('hour').innerHTML = day.toLocaleTimeString();
-    document.getElementById('temp').innerHTML = (infos.main.temp - 273.15).toFixed(2) + '°C';
 
+    logoMeteo.src = logo[0];
+    // clear sky - few clouds - scattered clouds - broken clouds - shower rain - rain - thunderstorm - snow - mist
+    document.getElementById('description').innerHTML = 'description';
+
+
+    let tempC = infos.main.temp - 273.15;
+    nbrThermo.innerHTML = tempC.toFixed(2) + '°C';
+    if(tempC <= 0){
+        logoThermo.src = 'logoWeather/tempNeg.png';
+    }
+    else {
+        logoThermo.src = 'logoWeather/tempPos.png';
+    }
+    document.getElementById('humidity').innerHTML += infos.main.humidity + '%';
+    // 1m/s = 3.6 km/h
+    document.getElementById('wind').innerHTML += (infos.wind.speed * 3.6).toFixed(2) + 'km/h';
 }
 
