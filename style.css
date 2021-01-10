@@ -1,0 +1,42 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 62.5%;
+    font-family: sans-serif;
+}
+
+body {
+    width: 100%;
+}
+
+#container {
+    width: 60%;
+    height: 60vh;
+    margin: auto;
+    background-image: url("logoWeather/landscape.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+header, section {
+    padding: 1vw;
+    display: flex;
+    justify-content: space-between;
+}
+
+#country {
+    font-size: 4vw;
+}
+
+#time, #infos {
+    font-size: 2vw;
+}
+
+#temp {
+    font-size: 4vw;
+}
+
