@@ -1,3 +1,4 @@
+// xhr object creation
 let xhr = new XMLHttpRequest();
 
 const weatherURL = "https://api.openweathermap.org/data/2.5/weather?q=Fourmies,fr&appid=bb42fe4b0d1ec83e0f25ea6c292817ec";
@@ -7,16 +8,16 @@ xhr.open("GET", weatherURL);
 xhr.responseType = "json";
 xhr.send();
 
-// target
+// html element targets
 let weather = document.getElementById('weather');
 
 let logoMeteo = document.createElement('img');
-logoMeteo.style.width = '14vw';
+logoMeteo.style.width = '100%';
 weather.appendChild(logoMeteo);
 
 let temp = document.getElementById('temp');
 let logoThermo = document.createElement('img');
-logoThermo.style.width = '10vw';
+logoThermo.style.width = '100%';
 let nbrThermo = document.createElement('span');
 temp.appendChild(logoThermo);
 temp.appendChild(nbrThermo);
@@ -33,14 +34,20 @@ xhr.onload = function () {
     document.getElementById('date').innerHTML = day.toLocaleDateString();
     document.getElementById('hour').innerHTML = day.toLocaleTimeString();
 
-
     // clear sky - few clouds -  -  -  -  -  -  -
     let description = document.getElementById('description');
     let txt = infos.weather[0].description;
-    console.log(txt);
+    let planet = infos.sys.sunrise;
+    console.log(planet);
     switch (txt) {
         case 'clear sky':
-            logoMeteo.src = 'logoWeather/sun.png';
+            if(day > infos.sys.sunrise && day < infos.sys.sunset){
+                logoMeteo.src = 'logoWeather/moon.png';
+            }
+            else {
+                logoMeteo.src = 'logoWeather/sun.png';
+            }
+
             description.innerHTML = 'ciel dégagé';
             break;
         case 'few clouds':
@@ -71,10 +78,6 @@ xhr.onload = function () {
             logoMeteo.src = 'logoWeather/snow.png';
             description.innerHTML = 'neige';
             break;
-        // case 'mist':
-        //     logoMeteo.src = '';
-        //     description.innerHTML = '';
-        //     break;
     }
 
 
