@@ -42,6 +42,10 @@ section, #temp {
     align-items: center;
 }
 
+#ref {
+    width: 33%;
+}
+
 #description {
     text-align: center;
 }
@@ -51,6 +55,7 @@ section, #temp {
 }
 
 #temp {
+    width: 33%;
     font-size: 2.5vw;
 }
 

@@ -27,27 +27,31 @@ xhr.onload = function () {
         return;
     }
 
-    let day = new Date();
     let infos = xhr.response;
-
+    console.log(infos);
     document.getElementById('country').innerHTML = infos.name;
-    document.getElementById('date').innerHTML = day.toLocaleDateString();
-    document.getElementById('hour').innerHTML = day.toLocaleTimeString();
 
     // conditions
     let description = document.getElementById('description');
     let txt = infos.weather[0].description;
+
     // background night or day
-    let thisTime = Date.now() / 1000;
-    let night = document.getElementById('night');
-    if(thisTime > infos.sys.sunrise && thisTime > infos.sys.sunset){
-        night.style.backgroundColor = '#00000080';
-        night.style.color = 'white';
-    }
-    else {
-        night.style.backgroundColor = 'unset';
-        night.style.color = 'black';
-    }
+    let count = setInterval(function () {
+        let day = new Date();
+        document.getElementById('date').innerHTML = day.toLocaleDateString();
+        document.getElementById('hour').innerHTML = day.toLocaleTimeString();
+        let thisTime = Date.now() / 1000;
+        let night = document.getElementById('night');
+        if(thisTime > infos.sys.sunrise && thisTime > infos.sys.sunset){
+            night.style.backgroundColor = '#00000080';
+            night.style.color = 'white';
+        }
+        else {
+            night.style.backgroundColor = 'unset';
+            night.style.color = 'black';
+        }
+    }, 1000);
+
     // weather logo and description
     switch (txt) {
         case 'clear sky':
@@ -81,6 +85,10 @@ xhr.onload = function () {
         case 'snow':
             logoMeteo.src = 'logoWeather/snow.png';
             description.innerHTML = 'neige';
+            break;
+        case 'overcast clouds':
+            logoMeteo.src = 'logoWeather/cloud.png';
+            description.innerHTML = 'couvert';
             break;
     }
 
