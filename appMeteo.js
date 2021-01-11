@@ -40,7 +40,7 @@ xhr.onload = function () {
     // background night or day
     let thisTime = Date.now() / 1000;
     let night = document.getElementById('night');
-    if(thisTime > infos.sys.sunrise){
+    if(thisTime > infos.sys.sunrise && thisTime > infos.sys.sunset){
         night.style.backgroundColor = '#00000080';
         night.style.color = 'white';
     }
@@ -51,7 +51,7 @@ xhr.onload = function () {
     // weather logo and description
     switch (txt) {
         case 'clear sky':
-            logoMeteo.src = (thisTime > infos.sys.sunrise) ? 'logoWeather/moon.png' : 'logoWeather/sun.png';
+            logoMeteo.src = (thisTime > infos.sys.sunrise && thisTime > infos.sys.sunset) ? 'logoWeather/sun.png' : 'logoWeather/moon.png';
             description.innerHTML = 'ciel dégagé';
             break;
         case 'few clouds':
