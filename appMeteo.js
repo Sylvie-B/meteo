@@ -71,7 +71,11 @@ xhr.onload = function () {
             description.innerHTML = 'nuages épars';
             break;
         case 'shower rain':
-            logoMeteo.src = 'logoWeather/rain-sun.png';
+            logoMeteo.src = 'logoWeather/rainy.png';
+            description.innerHTML = 'quelques averses';
+            break;
+        case 'light rain':
+            logoMeteo.src = 'logoWeather/rainy.png';
             description.innerHTML = 'quelques averses';
             break;
         case 'rain':
@@ -79,7 +83,7 @@ xhr.onload = function () {
             description.innerHTML = 'pluie';
             break;
         case 'thunderstorm':
-            logoMeteo.src = '';
+            logoMeteo.src = 'logoWeather/storm.png';
             description.innerHTML = 'orage';
             break;
         case 'snow':
